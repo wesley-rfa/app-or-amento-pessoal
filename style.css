@@ -46,14 +46,25 @@
 }
 
 .titulo {
-  -webkit-animation-duration: 1s;
-          animation-duration: 1s;
+  -webkit-animation-duration: 0.8s;
+          animation-duration: 0.8s;
   -webkit-animation-name: zoomin;
           animation-name: zoomin;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
   overflow-y: hidden;
   font-size: 2.5rem;
   font-weight: 400;
   color: #0088c7;
+}
+
+#formCadastro {
+  -webkit-animation-duration: 0.8s;
+          animation-duration: 0.8s;
+  -webkit-animation-name: zoomin;
+          animation-name: zoomin;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
 }
 
 #footer {

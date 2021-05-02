@@ -5,19 +5,19 @@
   <title>Orçamento Pessoal</title>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <!-- Bootstrap início -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
     integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
     crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
     crossorigin="anonymous"></script>
   <!-- Bootstrap fim -->
   <link rel="stylesheet" href="style.css">
@@ -64,72 +64,74 @@
       </div>
     </div>
 
-    <div class="row mb-2">
-      <div class="col-md-2">
-        <select class="form-control" id="ano">
-          <option value="">Ano</option>
-          <option value="2020">2020</option>
-        </select>
+    <form id="formCadastro">
+      <div class="row mb-2 ">
+        <div class="col-md-2">
+          <select class="form-control" id="ano">
+            <option value="">Ano</option>
+            <option value="2020">2020</option>
+          </select>
+        </div>
+
+        <div class="col-md-2">
+          <select class="form-control" id="mes">
+            <option value="">Mês</option>
+            <option value="1">Janeiro</option>
+            <option value="2">Fevereiro</option>
+            <option value="3">Março</option>
+            <option value="4">Abril</option>
+            <option value="5">Maio</option>
+            <option value="6">Junho</option>
+            <option value="7">Julho</option>
+            <option value="8">Agosto</option>
+            <option value="9">Setembro</option>
+            <option value="10">Outubro</option>
+            <option value="11">Novembro</option>
+            <option value="12">Dezembro</option>
+          </select>
+        </div>
+
+        <div class="col-md-2">
+          <input type="number" min="0" max="31" step="1" class="form-control" placeholder="Dia" id="dia" />
+        </div>
+
+        <div class="col-md-6">
+          <select class="form-control" id="tipo">
+            <option values="">Tipo</option>
+            <option value="1">Alimentação</option>
+            <option value="2">Educação</option>
+            <option value="3">Lazer</option>
+            <option value="4">Saúde</option>
+            <option value="5">Transporte</option>
+          </select>
+        </div>
       </div>
 
-      <div class="col-md-2">
-        <select class="form-control" id="mes">
-          <option value="">Mês</option>
-          <option value="1">Janeiro</option>
-          <option value="2">Fevereiro</option>
-          <option value="3">Março</option>
-          <option value="4">Abril</option>
-          <option value="5">Maio</option>
-          <option value="6">Junho</option>
-          <option value="7">Julho</option>
-          <option value="8">Agosto</option>
-          <option value="9">Setembro</option>
-          <option value="10">Outubro</option>
-          <option value="11">Novembro</option>
-          <option value="12">Dezembro</option>
-        </select>
-      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <input type="text" class="form-control" placeholder="Descrição" id="descricao" />
+        </div>
 
-      <div class="col-md-2">
-        <input type="number" min="0" max="31" step="1" class="form-control" placeholder="Dia" id="dia" />
-      </div>
+        <div class="col-md-2">
+          <input type="number" class="form-control" placeholder="Valor" id="valor" />
+        </div>
 
-      <div class="col-md-6">
-        <select class="form-control" id="tipo">
-          <option values="">Tipo</option>
-          <option value="1">Alimentação</option>
-          <option value="2">Educação</option>
-          <option value="3">Lazer</option>
-          <option value="4">Saúde</option>
-          <option value="5">Transporte</option>
-        </select>
+        <div class="col-md-2 d-flex justify-content-end">
+          <button type="button" class="btn btn-primary" onclick="cadastrarDespesa()">
+            <i class="fas fa-plus"></i>
+          </button>
+        </div>
       </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-8">
-        <input type="text" class="form-control" placeholder="Descrição" id="descricao" />
-      </div>
-
-      <div class="col-md-2">
-        <input type="number" class="form-control" placeholder="Valor" id="valor" />
-      </div>
-
-      <div class="col-md-2 d-flex justify-content-end">
-        <button type="button" class="btn btn-primary" onclick="cadastrarDespesa()">
-          <i class="fas fa-plus"></i>
-        </button>
-      </div>
-    </div>
   </div>
+  </form>
 
   <div id="footer" class="row p-3 justify-content-center fixed-bottom">
     <div class="col-sm-4 text-center">
-        <i class="fa fa-code"></i>
-        <span class="titulo_footer">Desenvolvido por <a href="https://github.com/wesley-rfa" target="_blank">Wesley
-                Ribeiro</a></span>
+      <i class="fa fa-code"></i>
+      <span class="titulo_footer">Desenvolvido por <a href="https://github.com/wesley-rfa" target="_blank">Wesley
+          Ribeiro</a></span>
     </div>
-</div>
+  </div>
 </body>
 
 </html>
