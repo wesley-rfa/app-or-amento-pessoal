@@ -1,0 +1,74 @@
+@-webkit-keyframes zoomin {
+  from {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  to {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+@keyframes zoomin {
+  from {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  to {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+* {
+  font-family: 'Lexend', sans-serif;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+#header {
+  background: #007BFF;
+  color: #ffffff;
+}
+
+#header .nav-link {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.05rem;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+#header .nav-link:hover {
+  font-size: 1.05rem;
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+}
+
+.titulo {
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-name: zoomin;
+          animation-name: zoomin;
+  overflow-y: hidden;
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: #0088c7;
+}
+
+#footer {
+  background: #007BFF;
+  color: #ffffff;
+  font-size: 1.2rem;
+  letter-spacing: 0.02rem;
+  -webkit-transition: 1s;
+  transition: 1s;
+}
+
+#footer a {
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  color: #ffffff;
+}
+/*# sourceMappingURL=style.css.map */
