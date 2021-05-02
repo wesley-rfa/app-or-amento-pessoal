@@ -10,7 +10,7 @@
 *{
     font-family: 'Lexend', sans-serif;
     overflow-x: hidden;
-    overflow-y: hidden;
+    
 }
 
 #header{
@@ -21,9 +21,9 @@
         font-weight: 600;
         letter-spacing: 0.05rem;
         transition: 0.5s;
+        
         &:hover{
             font-size: 1.05rem;
-            transform: scale(1.05);
             cursor: pointer;
         }
     }
@@ -38,6 +38,18 @@
     font-size: 2.5rem;
     font-weight: 400;
     color: #007BFF;
+}
+
+.table{
+    margin-bottom: 8rem;
+    .btn_excluir{
+        color: red;
+        cursor: pointer;
+        transition: 0.5s;
+        &:hover{
+            transform: scale(1.2);
+        }
+    }
 }
 
 

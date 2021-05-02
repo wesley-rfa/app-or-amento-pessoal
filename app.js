@@ -16,7 +16,7 @@ class Bd {
         localStorage.setItem('despesa' + id, JSON.stringify(despesa))
         localStorage.setItem('id', id)
     }
-
+    //---Recupera registros de localStorage e retorna como array
     recuperarTodosRegistros() {
         let despesas = Array()
         let id = localStorage.getItem('id')
@@ -25,9 +25,13 @@ class Bd {
             if (despesa === null) {
                 continue
             }
+            despesa.id = i
             despesas.push(despesa)
         }
         return despesas
+    }
+    removerDespesa(id){
+        localStorage.removeItem('despesa'+id)
     }
 }
 
@@ -45,10 +49,15 @@ function cadastrarDespesa() {
         }
         bd.gravar(despesa)
         $('#staticBackdrop').modal()
+        $('#data').val('')
+        $('#tipo').val('')
+        $('#descricao').val('')
+        $('#valor').val('')
     }
 
 }
 
+//---Valida formulário
 function validaForm(dado) {
     if (dado.val() === '') {
         dado.addClass('is-invalid')
@@ -58,6 +67,7 @@ function validaForm(dado) {
     }
 }
 
+//---Carrega lista e exibe na tabela
 function carregaLista() {
     let despesas
     despesas = bd.recuperarTodosRegistros()
@@ -68,14 +78,20 @@ function carregaLista() {
         diaCadastro = element.data.substring(8, 10)
         dataCadastro = diaCadastro + '/' + mesCadastro + '/' + anoCadastro
         concat += `<tr>
-                        <td>${dataCadastro}</td>
-                        <td>${element.tipo}</td>
-                        <td>${element.descricao}</td>
-                        <td>${element.valor}</td>
-                        </tr>`
+                    <td>${dataCadastro}</td>
+                    <td>${element.tipo}</td>
+                    <td>${element.descricao}</td>
+                    <td>${element.valor}</td>
+                    <td><i class="fas fa-trash-alt btn_excluir" onclick="excluirDespesa(${element.id})"></i></td>
+                    </tr>`
     });
 
     $('#table_body').html(concat)
+}
+
+function excluirDespesa(id){
+    bd.removerDespesa(id)
+    carregaLista()
 }
 
 function registro() {
@@ -83,8 +99,14 @@ function registro() {
     $('#registro').removeClass('d-none')
     $('#consulta').addClass('d-none')
 
+    $('#nav_registro').addClass('active')
+    $('#nav_consulta').removeClass('active')
+
 }
 function consulta() {
+    $('#nav_registro').removeClass('active')
+    $('#nav_consulta').addClass('active')
+
     $('#titulo').html('Consulta de Despesas')
     $('#registro').addClass('d-none')
     $('#consulta').removeClass('d-none')
