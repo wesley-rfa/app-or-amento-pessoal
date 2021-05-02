@@ -42,6 +42,20 @@
     }
 }
 
+.grafico{
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-name: zoomin;
+    box-shadow: 0 5px 10px rgba(154,160,185,.5), 0 0px 40px rgba(166,173,201,.40);
+    border-radius: 20px;
+    transition: 0.8s;
+    background: #fff;
+}
+.grafico:hover{
+    box-shadow: -2px 5px 15px rgba(154,160,185,.6), 5px 10px 40px rgba(166,173,201,.7);
+    transform: scale(1.005);
+}
+
 #footer {
     background: #007bff;
     color: #ffffff;

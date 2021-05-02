@@ -25,7 +25,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <!-- Font Awesome -->
   <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
-
+  <script src="https://code.highcharts.com/highcharts.js"></script>
 
 
 </head>
@@ -76,11 +76,11 @@
             <div class="col-md-4">
               <select class="form-control" id="tipo">
                 <option value="">Tipo</option>
-                <option value="Alimentação">Alimentação</option>
-                <option value="Educação">Educação</option>
-                <option value="Lazer">Lazer</option>
-                <option value="Saúde">Saúde</option>
-                <option value="Transporte">Transporte</option>
+                <option value="1">Alimentação</option>
+                <option value="2">Educação</option>
+                <option value="3">Lazer</option>
+                <option value="4">Saúde</option>
+                <option value="5">Transporte</option>
               </select>
               <div class="invalid-feedback">Selecione uma opção!</div>
             </div>
@@ -170,12 +170,13 @@
       </div>
 
 
-      <div class="tab-pane fade" id="pills-dashborad" role="tabpanel" aria-labelledby="pills-contact-tab">
+      <div class="tab-pane fade mb-3" id="pills-dashborad" role="tabpanel" aria-labelledby="pills-contact-tab">
         <div class="row">
-          <div class="col mb-5">
+          <div class="col mb-3">
             <h1 class="titulo"><i class="fas fa-list-ul mr-2"></i>Dashboard de Despesas</h1>
           </div>
         </div>
+        <div id="grafico_pizza" class="grafico m-2" style="width:50%; height:400px;"></div>
       </div>
     </div>
 
