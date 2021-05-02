@@ -36,12 +36,9 @@ let bd = new Bd()
 //---Recupera dados do form e grava
 function cadastrarDespesa() {
     if (validaForm($('#data')) && validaForm($('#tipo')) && validaForm($('#valor')) && validaForm($('#descricao'))) {
-        anoCadastro = $('#data').val().substring(0, 4)
-        mesCadastro = $('#data').val().substring(5, 7)
-        diaCadastro = $('#data').val().substring(8, 10)
-        dataCadastro = diaCadastro + '/' + mesCadastro + '/' + anoCadastro
+        
         let despesa = {
-            data: dataCadastro,
+            data: $('#data').val(),
             tipo: $('#tipo').val(),
             descricao: $('#descricao').val(),
             valor: $('#valor').val()
@@ -66,8 +63,12 @@ function carregaLista() {
     despesas = bd.recuperarTodosRegistros()
     let concat = ''
     despesas.forEach(element => {
+        anoCadastro = element.data.substring(0, 4)
+        mesCadastro = element.data.substring(5, 7)
+        diaCadastro = element.data.substring(8, 10)
+        dataCadastro = diaCadastro + '/' + mesCadastro + '/' + anoCadastro
         concat += `<tr>
-                        <td>${element.data}</td>
+                        <td>${dataCadastro}</td>
                         <td>${element.tipo}</td>
                         <td>${element.descricao}</td>
                         <td>${element.valor}</td>
