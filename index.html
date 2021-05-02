@@ -110,42 +110,19 @@
       <div class="tab-pane fade" id="pills-consulta" role="tabpanel" aria-labelledby="pills-profile-tab">
 
         <div class="row">
-          <div class="col mb-5">
+          <div class="col mb-4">
             <h1 class="titulo"><i class="fas fa-list-ul mr-2"></i>Consulta de Despesas</h1>
           </div>
         </div>
         <form>
           <div class="row mb-2">
-            <div class="col-md-2">
-              <select class="form-control" id="ano">
-                <option value="">Ano</option>
-                <option value="2018">2018</option>
-              </select>
+            <div class="col-md-11">
+              <input type="text" class="form-control" placeholder="Descrição" id="descricao" />
             </div>
+          </div>
 
-            <div class="col-md-2">
-              <select class="form-control" id="mes">
-                <option value="">Mês</option>
-                <option value="1">Janeiro</option>
-                <option value="2">Fevereiro</option>
-                <option value="3">Março</option>
-                <option value="4">Abril</option>
-                <option value="5">Maio</option>
-                <option value="6">Junho</option>
-                <option value="7">Julho</option>
-                <option value="8">Agosto</option>
-                <option value="9">Setembro</option>
-                <option value="10">Outubro</option>
-                <option value="11">Novembro</option>
-                <option value="12">Dezembro</option>
-              </select>
-            </div>
-
-            <div class="col-md-2">
-              <input type="text" class="form-control" placeholder="Dia" id="dia" />
-            </div>
-
-            <div class="col-md-6">
+          <div class="row  mb-5">
+            <div class="col-md-4 mb-2">
               <select class="form-control" id="tipo">
                 <option value="">Tipo</option>
                 <option value="Alimentação">Alimentação</option>
@@ -155,19 +132,18 @@
                 <option value="Transporte">Transporte</option>
               </select>
             </div>
-          </div>
 
-          <div class="row  mb-5">
-            <div class="col-md-8">
-              <input type="text" class="form-control" placeholder="Descrição" id="descricao" />
+            <div class="col-md-3 mb-2">
+              <input id="data" type="date" class="form-control" min="2021-01-01">
+              <div class="invalid-feedback">Selecione um ano válido!</div>
             </div>
 
-            <div class="col-md-2">
+            <div class="col-md-2 mb-2">
               <input type="text" class="form-control" placeholder="Valor" id="valor" />
             </div>
 
-            <div class="col-md-2 d-flex justify-content-end">
-              <button type="button" class="btn btn-primary">
+            <div class="col-md-2 d-flex justify-content-end mb-2">
+              <button type="button" class="btn btn-primary btn-block">
                 <i class="fas fa-search mr-1"></i>Buscar
               </button>
             </div>

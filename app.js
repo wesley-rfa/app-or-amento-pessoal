@@ -74,6 +74,7 @@ function carregaLista() {
     let despesas
     despesas = bd.recuperarTodosRegistros()
     let concat = ''
+    let somaValor = 0
     despesas.forEach(element => {
         if (element.data === undefined) {
             dataCadastro = ''
@@ -83,7 +84,7 @@ function carregaLista() {
             diaCadastro = element.data.substring(8, 10)
             dataCadastro = diaCadastro + '/' + mesCadastro + '/' + anoCadastro
         }
-
+        somaValor += parseInt(element.valor)
         valor = parseInt(element.valor).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })
         concat += `<tr>
                     <td>${dataCadastro}</td>
@@ -93,7 +94,11 @@ function carregaLista() {
                     <td><i class="fas fa-trash-alt btn_excluir" onclick="excluirDespesa(${element.id})"></i></td>
                     </tr>`
     });
-
+    concat += `<tr>
+                    <td colspan="3" class="text-right"><strong>Total:</strong></td>
+                    <td><strong>${somaValor.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</strong></td>
+                    <td></td>
+                    </tr>`
     $('#table_body').html(concat)
 }
 
@@ -105,21 +110,12 @@ function excluirDespesa(id) {
 function pesquisarDespesa() { }
 
 function registro() {
-    $('#titulo').html('Registro de Nova Despesa')
-    $('#registro').removeClass('d-none')
-    $('#consulta').addClass('d-none')
-
     $('#nav_registro').addClass('active')
     $('#nav_consulta').removeClass('active')
-
 }
 function consulta() {
     $('#nav_registro').removeClass('active')
     $('#nav_consulta').addClass('active')
-
-    $('#titulo').html('Consulta de Despesas')
-    $('#registro').addClass('d-none')
-    $('#consulta').removeClass('d-none')
     carregaLista()
 }
 
