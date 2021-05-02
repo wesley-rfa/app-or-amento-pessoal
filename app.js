@@ -1,78 +1,29 @@
-Highcharts.setOptions({
-    lang: {
-        decimalPoint: ',',
-        thousandsSep: '.',
-        viewFullscreen: 'Ver em tela cheia',
-        exitFullscreen: 'Sair do modo tela cheia',
-        printChart: 'Imprimir GrÃ¡fico',
-        downloadPNG: 'Download PNG',
-        downloadJPEG: 'Download JPEG',
-        downloadPDF: 'Download PDF',
-        downloadSVG: 'Download SVG'
-    }
-});
 // Radialize the colors
 Highcharts.setOptions({
     colors: Highcharts.map(Highcharts.getOptions().colors, function (color) {
-        return {
-            radialGradient: {
-                cx: 0.5,
-                cy: 0.3,
-                r: 0.7
-            },
-            stops: [
-                [0, color],
-                [1, Highcharts.color(color).brighten(-0.3).get('rgb')] // darken
-            ]
+        return {radialGradient: {cx: 0.5,cy: 0.3,r: 0.7},
+            stops: [[0, color],[1, Highcharts.color(color).brighten(-0.3).get('rgb')]]
         };
     })
 });
 
 // Build the chart
 var grafico = Highcharts.chart('grafico_pizza', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie'
-    },
-    credits: {
-        enabled: false
-    },
-    title: {
-        text: 'Gastos por Tipo'
-    },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    accessibility: {
-        point: {
-            valueSuffix: '%'
-        }
-    },
+    chart: {plotBackgroundColor: null,plotBorderWidth: null,plotShadow: false,type: 'pie'},
+    credits: {enabled: false},
+    title: { text: '' },
+    tooltip: {pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'},
+    accessibility: {point: {valueSuffix: '%'}},
     plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
+        pie: {allowPointSelect: true,cursor: 'pointer',
             dataLabels: {
                 enabled: true,
                 format: '<b>{point.name}</b>: {point.percentage:.1f} %',
                 connectorColor: 'silver'
-            },
-            showInLegend: true
+            },showInLegend: true
         }
     },
-    series: [{
-        name: 'Tipo',
-        data: [
-            { name: 'Chrome', y: 61.41 },
-            { name: 'Internet Explorer', y: 11.84 },
-            { name: 'Firefox', y: 10.85 },
-            { name: 'Edge', y: 4.67 },
-            { name: 'Safari', y: 4.18 },
-            { name: 'Other', y: 7.05 }
-        ]
-    }]
+    series: [{name: 'Tipo',data: []}]
 });
 
 let somaAlimentacao = 0
@@ -80,12 +31,12 @@ let somaEducacao = 0
 let somaLazer = 0
 let somaSaude = 0
 let somaTransporte = 0
+let numeroDespesas = 0
+let total = 0
 class Bd {
     constructor() {
         let id = localStorage.getItem('id')
-        if (id === null) {
-            localStorage.setItem('id', 0)
-        }
+        if (id === null) { localStorage.setItem('id', 0)}
     }
     //---Recupera próximo id de localStorage
     getProximoId() {
@@ -95,6 +46,7 @@ class Bd {
     //---Grava a despesa em local storage
     gravar(despesa) {
         let id = this.getProximoId()
+        total += parseInt(despesa.valor)
         localStorage.setItem('despesa' + id, JSON.stringify(despesa))
         localStorage.setItem('id', id)
     }
@@ -104,18 +56,17 @@ class Bd {
         let id = localStorage.getItem('id')
         for (let i = 1; i <= id; i++) {
             let despesa = JSON.parse(localStorage.getItem('despesa' + i))
-            if (despesa === null) {
-                continue
-            }
+            if (despesa === null) {continue}
             despesa.id = i
             despesas.push(despesa)
         }
         return despesas
     }
-
-
     removerDespesa(id) {
+        let despesa = JSON.parse(localStorage.getItem('despesa' + id))
+        total -= parseFloat(despesa.valor)
         localStorage.removeItem('despesa' + id)
+        return parseInt(despesa.tipo) + "/" + parseFloat(despesa.valor)
     }
 }
 
@@ -137,10 +88,13 @@ function cadastrarDespesa() {
         $('#tipo').val('')
         $('#descricao').val('')
         $('#valor').val('')
-
-        carregaLista()
+        somaAlimentacao = 0
+        somaEducacao = 0
+        somaLazer = 0
+        somaSaude = 0
+        somaTransporte = 0
+        carregaLista(0)
     }
-
 }
 
 //---Valida formulário
@@ -154,13 +108,16 @@ function validaForm(dado) {
 }
 
 //---Carrega lista e exibe na tabela
-function carregaLista() {
+function carregaLista(parm) {
     let despesas
     despesas = bd.recuperarTodosRegistros()
     let concat = ''
-    let somaValor = 0
     let tipo = ''
+    total = 0
+    numeroDespesas = 0
     despesas.forEach(element => {
+        numeroDespesas++
+        total += parseFloat(element.valor)
         if (element.data === undefined) {
             dataCadastro = ''
         } else {
@@ -168,31 +125,33 @@ function carregaLista() {
             mesCadastro = element.data.substring(5, 7)
             diaCadastro = element.data.substring(8, 10)
             dataCadastro = diaCadastro + '/' + mesCadastro + '/' + anoCadastro
-            switch (parseInt(element.tipo)) {
-                case 1:
-                    tipo = 'Alimentação'
-                    somaAlimentacao += parseInt(element.valor)
-                    break
-                case 2:
-                    tipo = 'Educação'
-                    somaEducacao += parseInt(element.valor)
-                    break
-                case 3:
-                    tipo = 'Lazer'
-                    somaLazer += parseInt(element.valor)
-                    break
-                case 4:
-                    tipo = 'Saúde'
-                    somaSaude += parseInt(element.valor)
-                    break
-                case 5:
-                    tipo = 'Transporte'
-                    somaTransporte += parseInt(element.valor)
-                    break
+            if (parm == 0) {
+                switch (parseInt(element.tipo)) {
+                    case 1:
+                        tipo = 'Alimentação'
+                        somaAlimentacao += parseFloat(element.valor)
+                        break
+                    case 2:
+                        tipo = 'Educação'
+                        somaEducacao += parseFloat(element.valor)
+                        break
+                    case 3:
+                        tipo = 'Lazer'
+                        somaLazer += parseFloat(element.valor)
+                        break
+                    case 4:
+                        tipo = 'Saúde'
+                        somaSaude += parseFloat(element.valor)
+                        break
+                    case 5:
+                        tipo = 'Transporte'
+                        somaTransporte += parseFloat(element.valor)
+                        break
+                }
             }
+
         }
-        somaValor += parseInt(element.valor)
-        valor = parseInt(element.valor).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })
+        valor = parseFloat(element.valor).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })
         concat += `<tr>
                     <td>${dataCadastro}</td>
                     <td>${tipo}</td>
@@ -201,27 +160,44 @@ function carregaLista() {
                     <td><i class="fas fa-trash-alt btn_excluir" onclick="excluirDespesa(${element.id})"></i></td>
                     </tr>`
     });
-    concat += `<tr>
-                    <td colspan="3" class="text-right"><strong>Total:</strong></td>
-                    <td><strong>${somaValor.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</strong></td>
-                    <td></td>
-                    </tr>`
     $('#table_body').html(concat)
     carregaGraficos()
 }
 
 function excluirDespesa(id) {
-    bd.removerDespesa(id)
-    carregaLista()
+    numeroDespesas--
+    retorno = bd.removerDespesa(id).split("/")
+    switch (parseInt(retorno[0])) {
+        case 1:
+            somaAlimentacao -= parseFloat(retorno[1])
+            break;
+        case 2:
+            somaEducacao -= parseFloat(retorno[1])
+            break;
+        case 3:
+            somaLazer -= parseFloat(retorno[1])
+            break;
+        case 4:
+            somaSaude -= parseFloat(retorno[1])
+            break;
+        case 5:
+            somaTransporte -= parseFloat(retorno[1])
+            break;
+    }
+    carregaLista(1)
     carregaGraficos()
+
 }
 
 function carregaGraficos() {
+    $('#valorTotal').html(`${total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}`)
+    $('#NumeroTotal').html(numeroDespesas)
+
     grafico.update({
         series: [{
             name: 'Tipo',
             data: [
-                { name: 'Alimentação', y: somaAlimentacao},
+                { name: 'Alimentação', y: somaAlimentacao },
                 { name: 'Educação', y: somaEducacao },
                 { name: 'Lazer', y: somaLazer },
                 { name: 'Saúde', y: somaSaude },
@@ -229,20 +205,8 @@ function carregaGraficos() {
             ]
         }]
     });
-
 }
 
-function registro() {
-    $('#nav_registro').addClass('active')
-    $('#nav_consulta').removeClass('active')
-}
-function consulta() {
-    $('#nav_registro').removeClass('active')
-    $('#nav_consulta').addClass('active')
-    carregaLista()
-}
-
-carregaLista()
-carregaGraficos()
+carregaLista(0)
 
 

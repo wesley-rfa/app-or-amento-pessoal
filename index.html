@@ -176,7 +176,24 @@
             <h1 class="titulo"><i class="fas fa-list-ul mr-2"></i>Dashboard de Despesas</h1>
           </div>
         </div>
-        <div id="grafico_pizza" class="grafico m-2" style="width:50%; height:400px;"></div>
+        <div class="row p-3 mb-5 ">
+          <div class="col-md-4 mb-3 align-items-center">
+            <div class="grafico m-2" style=" height:150px;">
+              <div class="titulo text-center mt-1"><i class="fas fa-dollar-sign mr-2"></i>Total de Despesas</div>
+              <div id="valorTotal" class="resultado mt-3 text-center"></div>
+            </div>
+            <div class="grafico m-2 mt-4" style=" height:150px;">
+              <div class="titulo text-center mt-1"><i class="fas fa-sort-amount-down mr-2"></i>N° de Despesas</div>
+              <div id="NumeroTotal" class="resultado mt-3 text-center"></div>
+            </div>
+          </div>
+          <div class="col-md-8 grafico mb-3">
+            <div class="titulo text-center"><i class="fas fa-chart-pie mr-2"></i>Despesas por Tipo</div>
+            <div id="grafico_pizza" class=" m-2" style=" height:300px;"></div>
+          </div>
+        </div>
+
+        
       </div>
     </div>
 
