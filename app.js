@@ -1,14 +1,11 @@
-
-
 class Bd {
     constructor(){
         let id = localStorage.getItem('id')
-
         if(id === null){
             localStorage.setItem('id', 0)
         }
     }
-
+    //---Recupera próximo id de localStorage
     getProximoId(){
         let proximoId = localStorage.getItem('id')
         return parseInt(proximoId)+1
@@ -24,13 +21,27 @@ class Bd {
 let bd = new Bd()
 //---Recupera dados do form e grava
 function cadastrarDespesa() {
-    let despesa = {
-        ano: $('#ano').val(),
-        mes: $('#mes').val(),
-        dia: $('#dia').val(),
-        tipo: $('#tipo').val(),
-        descricao: $('#descricao').val(),
-        valor: $('#valor').val()
+
+    if(validaForm($('#ano')) && validaForm($('#mes')) && validaForm($('#dia')) && validaForm($('#tipo')) && validaForm($('#descricao')) && validaForm($('#valor'))){
+        let despesa = {
+            ano: $('#ano').val(),
+            mes: $('#mes').val(),
+            dia: $('#dia').val(),
+            tipo: $('#tipo').val(),
+            descricao: $('#descricao').val(),
+            valor: $('#valor').val()
+        }
+        bd.gravar(despesa)
+        $('#staticBackdrop').modal()
     }
-    bd.gravar(despesa)
+    
+}
+
+function validaForm(dado){
+    if(dado.val() === ''){
+        dado.addClass('is-invalid')
+    }else{
+        dado.removeClass('is-invalid')
+        return true
+    }
 }
