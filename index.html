@@ -117,33 +117,34 @@
         <form>
           <div class="row mb-2">
             <div class="col-md-11">
-              <input type="text" class="form-control" placeholder="Descrição" id="descricao" />
+              <input type="text" class="form-control" placeholder="Descrição" id="descricao_consulta" />
+              <div class="invalid-feedback">Digite Algo!</div>
             </div>
           </div>
 
           <div class="row  mb-5">
             <div class="col-md-4 mb-2">
-              <select class="form-control" id="tipo">
+              <select class="form-control" id="tipo_consulta">
                 <option value="">Tipo</option>
-                <option value="Alimentação">Alimentação</option>
-                <option value="Educação">Educação</option>
-                <option value="Lazer">Lazer</option>
-                <option value="Saúde">Saúde</option>
-                <option value="Transporte">Transporte</option>
+                <option value="1">Alimentação</option>
+                <option value="2">Educação</option>
+                <option value="3">Lazer</option>
+                <option value="4">Saúde</option>
+                <option value="5">Transporte</option>
               </select>
             </div>
 
             <div class="col-md-3 mb-2">
-              <input id="data" type="date" class="form-control" min="2021-01-01">
-              <div class="invalid-feedback">Selecione um ano válido!</div>
+              <input id="data_consulta" type="date" class="form-control" min="2021-01-01">
+              <div class="invalid-feedback">Selecione uma data válida!</div>
             </div>
 
             <div class="col-md-2 mb-2">
-              <input type="text" class="form-control" placeholder="Valor" id="valor" />
+              <input id="valor_consulta" type="text" class="form-control" placeholder="Valor" id="valor" />
             </div>
 
             <div class="col-md-2 d-flex justify-content-end mb-2">
-              <button type="button" class="btn btn-primary btn-block">
+              <button type="button" class="btn btn-primary btn-block" onclick="pesquisarDespesa()">
                 <i class="fas fa-search mr-1"></i>Buscar
               </button>
             </div>
