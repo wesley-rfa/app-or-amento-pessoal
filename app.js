@@ -30,8 +30,8 @@ class Bd {
         }
         return despesas
     }
-    removerDespesa(id){
-        localStorage.removeItem('despesa'+id)
+    removerDespesa(id) {
+        localStorage.removeItem('despesa' + id)
     }
 }
 
@@ -39,8 +39,8 @@ let bd = new Bd()
 
 //---Recupera dados do form e grava
 function cadastrarDespesa() {
-    if ( validaForm($('#descricao')) && validaForm($('#tipo')) && validaForm($('#data')) && validaForm($('#valor')) ) {
-        
+    if (validaForm($('#descricao')) && validaForm($('#tipo')) && validaForm($('#data')) && validaForm($('#valor'))) {
+
         let despesa = {
             data: $('#data').val(),
             tipo: $('#tipo').val(),
@@ -75,11 +75,16 @@ function carregaLista() {
     despesas = bd.recuperarTodosRegistros()
     let concat = ''
     despesas.forEach(element => {
-        anoCadastro = element.data.substring(0, 4)
-        mesCadastro = element.data.substring(5, 7)
-        diaCadastro = element.data.substring(8, 10)
-        dataCadastro = diaCadastro + '/' + mesCadastro + '/' + anoCadastro
-        valor = parseInt(element.valor).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})
+        if (element.data === undefined) {
+            dataCadastro = ''
+        } else {
+            anoCadastro = element.data.substring(0, 4)
+            mesCadastro = element.data.substring(5, 7)
+            diaCadastro = element.data.substring(8, 10)
+            dataCadastro = diaCadastro + '/' + mesCadastro + '/' + anoCadastro
+        }
+
+        valor = parseInt(element.valor).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })
         concat += `<tr>
                     <td>${dataCadastro}</td>
                     <td>${element.tipo}</td>
@@ -92,12 +97,12 @@ function carregaLista() {
     $('#table_body').html(concat)
 }
 
-function excluirDespesa(id){
+function excluirDespesa(id) {
     bd.removerDespesa(id)
     carregaLista()
 }
 
-function pesquisarDespesa(){}
+function pesquisarDespesa() { }
 
 function registro() {
     $('#titulo').html('Registro de Nova Despesa')
