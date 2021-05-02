@@ -2,8 +2,10 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>Orçamento pessoal</title>
+  <title>Orçamento Pessoal</title>
 
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <!-- Bootstrap início -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -66,7 +68,7 @@
       <div class="col-md-2">
         <select class="form-control" id="ano">
           <option value="">Ano</option>
-          <option value="2018">2018</option>
+          <option value="2020">2020</option>
         </select>
       </div>
 
@@ -89,12 +91,12 @@
       </div>
 
       <div class="col-md-2">
-        <input type="text" class="form-control" placeholder="Dia" id="dia" />
+        <input type="number" min="0" max="31" step="1" class="form-control" placeholder="Dia" id="dia" />
       </div>
 
       <div class="col-md-6">
         <select class="form-control" id="tipo">
-          <option>Tipo</option>
+          <option values="">Tipo</option>
           <option value="1">Alimentação</option>
           <option value="2">Educação</option>
           <option value="3">Lazer</option>
@@ -110,11 +112,11 @@
       </div>
 
       <div class="col-md-2">
-        <input type="text" class="form-control" placeholder="Valor" id="valor" />
+        <input type="number" class="form-control" placeholder="Valor" id="valor" />
       </div>
 
       <div class="col-md-2 d-flex justify-content-end">
-        <button type="button" class="btn btn-primary">
+        <button type="button" class="btn btn-primary" onclick="cadastrarDespesa()">
           <i class="fas fa-plus"></i>
         </button>
       </div>
