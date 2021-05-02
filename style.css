@@ -1,68 +1,46 @@
-@-webkit-keyframes zoomin {
-  from {
-    -webkit-transform: scale(0);
-            transform: scale(0);
-  }
-  to {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-}
-
-@keyframes zoomin {
-  from {
-    -webkit-transform: scale(0);
-            transform: scale(0);
-  }
-  to {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-}
-
 * {
-  font-family: 'Lexend', sans-serif;
+  font-family: "Lexend", sans-serif;
   overflow-x: hidden;
 }
 
 #header {
-  background: #007BFF;
+  background: #007bff;
   color: #ffffff;
 }
 
-#header .nav-link {
-  font-size: 1rem;
+#header #app {
+  font-size: 1.5rem;
   font-weight: 600;
   letter-spacing: 0.05rem;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
 }
 
-#header .nav-link:hover {
-  font-size: 1.05rem;
-  cursor: pointer;
+.nav-pills {
+  font-size: 1.2rem;
+  font-weight: 500;
 }
 
 .titulo {
-  -webkit-animation-duration: 0.8s;
-          animation-duration: 0.8s;
-  -webkit-animation-name: zoomin;
-          animation-name: zoomin;
-  -webkit-animation-timing-function: linear;
-          animation-timing-function: linear;
   overflow-y: hidden;
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 400;
-  color: #007BFF;
+  color: #007bff;
 }
 
 .table {
   margin-bottom: 8rem;
 }
 
+.table th {
+  color: #007bff;
+  font-size: 1rem;
+}
+
+.table tr {
+  cursor: pointer;
+}
+
 .table .btn_excluir {
   color: red;
-  cursor: pointer;
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }
@@ -73,7 +51,7 @@
 }
 
 #footer {
-  background: #007BFF;
+  background: #007bff;
   color: #ffffff;
   font-size: 1.2rem;
   letter-spacing: 0.02rem;

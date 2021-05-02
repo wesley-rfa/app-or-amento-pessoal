@@ -39,7 +39,7 @@ let bd = new Bd()
 
 //---Recupera dados do form e grava
 function cadastrarDespesa() {
-    if (validaForm($('#data')) && validaForm($('#tipo')) && validaForm($('#valor')) && validaForm($('#descricao'))) {
+    if ( validaForm($('#descricao')) && validaForm($('#tipo')) && validaForm($('#data')) && validaForm($('#valor')) ) {
         
         let despesa = {
             data: $('#data').val(),
@@ -53,6 +53,8 @@ function cadastrarDespesa() {
         $('#tipo').val('')
         $('#descricao').val('')
         $('#valor').val('')
+
+        carregaLista()
     }
 
 }
@@ -77,11 +79,12 @@ function carregaLista() {
         mesCadastro = element.data.substring(5, 7)
         diaCadastro = element.data.substring(8, 10)
         dataCadastro = diaCadastro + '/' + mesCadastro + '/' + anoCadastro
+        valor = parseInt(element.valor).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})
         concat += `<tr>
                     <td>${dataCadastro}</td>
                     <td>${element.tipo}</td>
                     <td>${element.descricao}</td>
-                    <td>${element.valor}</td>
+                    <td>${valor}</td>
                     <td><i class="fas fa-trash-alt btn_excluir" onclick="excluirDespesa(${element.id})"></i></td>
                     </tr>`
     });
@@ -93,6 +96,8 @@ function excluirDespesa(id){
     bd.removerDespesa(id)
     carregaLista()
 }
+
+function pesquisarDespesa(){}
 
 function registro() {
     $('#titulo').html('Registro de Nova Despesa')
@@ -112,3 +117,5 @@ function consulta() {
     $('#consulta').removeClass('d-none')
     carregaLista()
 }
+
+carregaLista()
