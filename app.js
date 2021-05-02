@@ -1,14 +1,14 @@
 class Bd {
-    constructor(){
+    constructor() {
         let id = localStorage.getItem('id')
-        if(id === null){
+        if (id === null) {
             localStorage.setItem('id', 0)
         }
     }
     //---Recupera próximo id de localStorage
-    getProximoId(){
+    getProximoId() {
         let proximoId = localStorage.getItem('id')
-        return parseInt(proximoId)+1
+        return parseInt(proximoId) + 1
     }
     //---Grava a despesa em local storage
     gravar(despesa) {
@@ -16,17 +16,32 @@ class Bd {
         localStorage.setItem('despesa' + id, JSON.stringify(despesa))
         localStorage.setItem('id', id)
     }
+
+    recuperarTodosRegistros() {
+        let despesas = Array()
+        let id = localStorage.getItem('id')
+        for (let i = 1; i <= id; i++) {
+            let despesa = JSON.parse(localStorage.getItem('despesa' + i))
+            if (despesa === null) {
+                continue
+            }
+            despesas.push(despesa)
+        }
+        return despesas
+    }
 }
 
 let bd = new Bd()
+
 //---Recupera dados do form e grava
 function cadastrarDespesa() {
-
-    if(validaForm($('#ano')) && validaForm($('#mes')) && validaForm($('#dia')) && validaForm($('#tipo')) && validaForm($('#descricao')) && validaForm($('#valor'))){
+    if (validaForm($('#data')) && validaForm($('#tipo')) && validaForm($('#valor')) && validaForm($('#descricao'))) {
+        anoCadastro = $('#data').val().substring(0, 4)
+        mesCadastro = $('#data').val().substring(5, 7)
+        diaCadastro = $('#data').val().substring(8, 10)
+        dataCadastro = diaCadastro + '/' + mesCadastro + '/' + anoCadastro
         let despesa = {
-            ano: $('#ano').val(),
-            mes: $('#mes').val(),
-            dia: $('#dia').val(),
+            data: dataCadastro,
             tipo: $('#tipo').val(),
             descricao: $('#descricao').val(),
             valor: $('#valor').val()
@@ -34,14 +49,43 @@ function cadastrarDespesa() {
         bd.gravar(despesa)
         $('#staticBackdrop').modal()
     }
-    
+
 }
 
-function validaForm(dado){
-    if(dado.val() === ''){
+function validaForm(dado) {
+    if (dado.val() === '') {
         dado.addClass('is-invalid')
-    }else{
+    } else {
         dado.removeClass('is-invalid')
         return true
     }
+}
+
+function carregaLista() {
+    let despesas
+    despesas = bd.recuperarTodosRegistros()
+    let concat = ''
+    despesas.forEach(element => {
+        concat += `<tr>
+                        <td>${element.data}</td>
+                        <td>${element.tipo}</td>
+                        <td>${element.descricao}</td>
+                        <td>${element.valor}</td>
+                        </tr>`
+    });
+
+    $('#table_body').html(concat)
+}
+
+function registro() {
+    $('#titulo').html('Registro de Nova Despesa')
+    $('#registro').removeClass('d-none')
+    $('#consulta').addClass('d-none')
+
+}
+function consulta() {
+    $('#titulo').html('Consulta de Despesas')
+    $('#registro').addClass('d-none')
+    $('#consulta').removeClass('d-none')
+    carregaLista()
 }
